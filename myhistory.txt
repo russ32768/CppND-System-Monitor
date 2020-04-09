@@ -1,0 +1,11 @@
+    1  history
+    2  apt install meld
+    3  ls
+    4  cd CppND-System-Monitor/ 
+    5  make build
+    6  make
+    7  apt install clang-format
+    8  make
+    9  make build
+   10  make test
+   11  history > myhistory.txt
