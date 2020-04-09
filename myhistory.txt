@@ -9,3 +9,15 @@
     9  make build
    10  make test
    11  history > myhistory.txt
+
+     1  apt install clang-format
+    2  grep make CppND-System-Monitor/myhistory.txt 
+    3  cd CppND-System-Monitor
+    4  clear;make build && build/monitor
+    5  git status
+    6  history
+    7  grep hist myhistory.txt 
+    8  git commit -am "done pid"
+    9  git config --global user.email "russ32768@yahoo.com"
+   10  git config --global user.name "russmc"
+   11  history >> myhistory.txt

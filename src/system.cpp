@@ -3,6 +3,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "linux_parser.h"
 #include "process.h"
@@ -18,7 +19,22 @@ using std::vector;
 Processor& System::Cpu() { return cpu_; }
 
 // TODO: Return a container composed of the system's processes
-vector<Process>& System::Processes() { return processes_; }
+vector<Process>& System::Processes() {
+    vector<int> pids{LinuxParser::Pids()};
+    set<int> new_pids;
+    for(Process  & process : processes_){
+        new_pids.insert(process.Pid());
+    }
+
+    for(int pid : pids){
+        if(new_pids.find(pid) == new_pids.end()){
+            processes_.emplace_back(pid);
+        }
+    }
+
+     std::sort(processes_.begin(), processes_.end(), std::greater<Process>());
+     return processes_; 
+     }
 
 // TODO: Return the system's kernel identifier (string)
 std::string System::Kernel() { return LinuxParser::Kernel(); }
@@ -33,7 +49,7 @@ std::string System::OperatingSystem() { return string(); }
 int System::RunningProcesses() { return 0; }
 
 // TODO: Return the total number of processes on the system
-int System::TotalProcesses() { return 0; }
+int System::TotalProcesses() { return 110; }
 
 // TODO: Return the number of seconds since the system started running
 long int System::UpTime() { return 0; }

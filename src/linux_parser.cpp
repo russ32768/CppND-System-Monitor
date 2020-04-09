@@ -57,9 +57,9 @@ vector<int> LinuxParser::Pids() {
     if (file->d_type == DT_DIR) {
       // Is every character of the name a digit?
       string filename(file->d_name);
-      std::cout << "filename " << filename << "\n";
       if (std::all_of(filename.begin(), filename.end(), isdigit)) {
         int pid = stoi(filename);
+        //std::cout << "pid " << pid ;
         pids.push_back(pid);
       }
     }
