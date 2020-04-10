@@ -7,6 +7,8 @@ class Processor {
 
   // TODOxx: Declare any necessary private members
  private:
+  long cached_active_ticks = 0;
+  long cached_idle_ticks = 0;
 };
 
 #endif

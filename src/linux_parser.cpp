@@ -79,13 +79,52 @@ long LinuxParser::Jiffies() { return 0; }
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { return 0; }
+long LinuxParser::ActiveJiffies(int pid) {
+  long res;
+  int user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice;
+  string line;
+  std::ifstream stream(kProcDirectory + to_string(pid) + kStatFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    linestream >> user >> nice >> system >> idle >> iowait >> irq >> softirq >>
+        steal >> guest >> guest_nice;
+  }
+  res = user + nice + system + irq + softirq + steal;
+  return res;
+}
 
 // TODO: Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { return 0; }
+long LinuxParser::ActiveJiffies() {
+  long res;
+  int user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice;
+  string line;
+  std::ifstream stream(kProcDirectory + kStatFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    linestream >> user >> nice >> system >> idle >> iowait >> irq >> softirq >>
+        steal >> guest >> guest_nice;
+  }
+  res = user + nice + system + irq + softirq + steal;
+  return res;
+}
 
 // TODO: Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { return 0; }
+long LinuxParser::IdleJiffies() {
+  long res;
+  int user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice;
+  string line;
+  std::ifstream stream(kProcDirectory + kStatFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    linestream >> user >> nice >> system >> idle >> iowait >> irq >> softirq >>
+        steal >> guest >> guest_nice;
+  }
+  res = idle + iowait;
+  return res;
+}
 
 // TODO: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() { return {}; }
