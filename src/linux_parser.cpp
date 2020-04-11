@@ -123,14 +123,15 @@ long LinuxParser::ActiveJiffies(int pid) {
 // TODO: Read and return the number of active jiffies for the system
 long LinuxParser::ActiveJiffies() {
   long res;
+  string cpu;
   int user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice;
   string line;
   std::ifstream stream(kProcDirectory + kStatFilename);
   if (stream.is_open()) {
     std::getline(stream, line);
     std::istringstream linestream(line);
-    linestream >> user >> nice >> system >> idle >> iowait >> irq >> softirq >>
-        steal >> guest >> guest_nice;
+    linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >>
+        softirq >> steal >> guest >> guest_nice;
   }
   res = user + nice + system + irq + softirq + steal;
   return res;
@@ -139,14 +140,15 @@ long LinuxParser::ActiveJiffies() {
 // TODO: Read and return the number of idle jiffies for the system
 long LinuxParser::IdleJiffies() {
   long res;
+  string cpu;
   int user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice;
   string line;
   std::ifstream stream(kProcDirectory + kStatFilename);
   if (stream.is_open()) {
     std::getline(stream, line);
     std::istringstream linestream(line);
-    linestream >> user >> nice >> system >> idle >> iowait >> irq >> softirq >>
-        steal >> guest >> guest_nice;
+    linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >>
+        softirq >> steal >> guest >> guest_nice;
   }
   res = idle + iowait;
   return res;
