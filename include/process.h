@@ -21,7 +21,7 @@ class Process {
   // TODOxx: Declare any necessary private members
  private:
   int pid_;
-  int cpu_util_ = 0;
+  float cpu_util_ = 0;
 };
 
 #endif
